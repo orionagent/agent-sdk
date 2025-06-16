@@ -1,4 +1,4 @@
-Agent SDK for APK V0.2.2文档
+# Agent SDK for APK V0.2.2文档
 
 # 概述
 
@@ -22,19 +22,19 @@ AgentOS Product Version: V1.2.0.250515
 
 1. ### 配置仓库
 
-如果你的gradle脚本使用的​**Groovy**​，那在项目根目录下会有一个**settings.gradle**文件，在此文件中以下位置添加maven配置（以下代码中​**加粗的部分**​）
+如果你的gradle脚本使用的 **Groovy** ，那在项目根目录下会有一个**settings.gradle**文件，在此文件中以下位置添加maven配置（以下代码中 **加粗的部分** ）
 
 ```Groovy
 dependencyResolutionManagement {
         repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
         repositories {
                 mavenCentral()
-                maven { url ​'https://jitpack.io'​ }
+                maven { url  'https://jitpack.io'  }
         }
 }
 ```
 
-如果你的gradle脚本使用的是​**Kotlin**​，那么在项目根目录下会有一个**settings.gradle.kts**文件，在此文件中以下位置添加maven配置（以下代码中​**加粗的部分**​）
+如果你的gradle脚本使用的是 **Kotlin** ，那么在项目根目录下会有一个**settings.gradle.kts**文件，在此文件中以下位置添加maven配置（以下代码中 **加粗的部分** ）
 
 ```Kotlin
 dependencyResolutionManagement {
@@ -48,20 +48,20 @@ dependencyResolutionManagement {
 
 2. ### 添加依赖
 
-如果你的gradle脚本使用的​**Groovy**​，那在**项目根目录**的**​app/​**目录下会有一个**build.gradle**文件，在此文件中以下位置添加maven配置（以下代码中​**加粗的部分**​）
+如果你的gradle脚本使用的 **Groovy** ，那在**项目根目录**的** app/ **目录下会有一个**build.gradle**文件，在此文件中以下位置添加maven配置（以下代码中 **加粗的部分** ）
 
 ```Groovy
 dependencies {
-        implementation ​'com.github.orionagent:agent-sdk:0.2.2'
+        implementation  'com.github.orionagent:agent-sdk:0.2.2'
         
         // 以下是Android标准库，默认kotlin项目都会依赖，
         // 如果编译报未找到错误，再添加以下依赖库
-        implementation ​'androidx.core:core-ktx:1.13.1'
-        implementation ​'androidx.appcompat:appcompat:1.6.1'
+        implementation  'androidx.core:core-ktx:1.13.1'
+        implementation  'androidx.appcompat:appcompat:1.6.1'
 }
 ```
 
-如果你的gradle脚本使用的是​**Kotlin**​，那么在**项目根目录**的**​app/​**目录下会有一个**build.gradle.kts**文件，在此文件中以下位置添加maven配置（以下代码中​**加粗的部分**​）
+如果你的gradle脚本使用的是 **Kotlin** ，那么在**项目根目录**的** app/ **目录下会有一个**build.gradle.kts**文件，在此文件中以下位置添加maven配置（以下代码中 **加粗的部分** ）
 
 ```Kotlin
 dependencies {
@@ -86,15 +86,15 @@ dependencies {
 }
 ```
 
-​**appId**​：Agent应用的appId，需在[接待后台](https://jiedai.ainirobot.com/web/portal/#/frame/hmag-agentos/hmag-agentos.agentapp/)申请
+ **appId** ：Agent应用的appId，需在[接待后台](https://jiedai.ainirobot.com/web/portal/#/frame/hmag-agentos/hmag-agentos.agentapp/)申请
 
-​**platform**​：当前运行的平台，如：**opk**或**apk**
+ **platform** ：当前运行的平台，如：**opk**或**apk**
 
-​**actionList**​：可以从外部调起的action（只能是app级），在注册表中声名的action需要在AppAgent的[onExecuteAction](https://cheetah-mobile.feishu.cn/docx/FwCQdP1WboqJm3xv5Yic8SxdnWf?fromScene=spaceOverview#share-KHucdip2BoLGHZx74aYcIC1snAh)方法中处理action的执行，注：如果不想对外暴露action，actionList可以设置为空数组[]
+ **actionList** ：可以从外部调起的action（只能是app级），在注册表中声名的action需要在AppAgent的[onExecuteAction](https://cheetah-mobile.feishu.cn/docx/FwCQdP1WboqJm3xv5Yic8SxdnWf?fromScene=spaceOverview#share-KHucdip2BoLGHZx74aYcIC1snAh)方法中处理action的执行，注：如果不想对外暴露action，actionList可以设置为空数组[]
 
 4. ### 添加AppAgent
 
-在项目的MainApplication的onCreate方法中添加以下代码（​**加粗部分**​），如果没有MainApplication.kt文件，请参考**[示例项目](https://cheetah-mobile.feishu.cn/docx/FwCQdP1WboqJm3xv5Yic8SxdnWf?fromScene=spaceOverview#doxcnh7OkltLezA2VX1XufECh6f)**
+在项目的MainApplication的onCreate方法中添加以下代码（ **加粗部分** ），如果没有MainApplication.kt文件，请参考**[示例项目](https://cheetah-mobile.feishu.cn/docx/FwCQdP1WboqJm3xv5Yic8SxdnWf?fromScene=spaceOverview#doxcnh7OkltLezA2VX1XufECh6f)**
 
 ```Kotlin
 package com.ainirobot.agent.sample
@@ -109,24 +109,24 @@ class MainApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        object​ : AppAgent(this) {
-​            ​
-            override​ ​fun​ ​onCreate()​ {
-​                ​// 设定角色人设
-​                setPersona("你叫豹姐姐，是一位聪明、亲切又略带俏皮的虚拟助手。")
-​                ​// 设定角色目标
-​                setObjective("通过自然的对话和合适的情绪表达，让用户感受到理解、陪伴与情感共鸣，从而提升交流的舒适感和信任感。")
-​            }
+        object  : AppAgent(this) {
+              
+            override   fun   onCreate()  {
+                  // 设定角色人设
+                 setPersona("你叫豹姐姐，是一位聪明、亲切又略带俏皮的虚拟助手。")
+                  // 设定角色目标
+                 setObjective("通过自然的对话和合适的情绪表达，让用户感受到理解、陪伴与情感共鸣，从而提升交流的舒适感和信任感。")
+             }
 
-​            ​override​ ​fun​ ​onExecuteAction(
-​                action: ​Action,
-​                params: ​Bundle?
-​            ): ​Boolean​ {
-​                ​// 在此处处理静态注册的action，如果你不需要处理，请返回false，如果要自行处理且不需要后续处理，则返回true
-​                ​// 默认返回false
-​                ​return​ ​false
-​            }
-​        }
+              override   fun   onExecuteAction(
+                 action:  Action,
+                 params:  Bundle?
+             ):  Boolean  {
+                  // 在此处处理静态注册的action，如果你不需要处理，请返回false，如果要自行处理且不需要后续处理，则返回true
+                  // 默认返回false
+                  return   false
+             }
+         }
     }
 }
 ```
@@ -166,36 +166,36 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-​        ​// 添加页面级Agent
-​        PageAgent(this)
-​            .registerAction(
-​                Action(
-​                    name = ​"com.agent.demo.SHOW_SMILE_FACE",
-​                    displayName = ​"笑",
-​                    desc = ​"响应用户的开心、满意或正面情绪",
-​                    parameters = ​listOf(
-​                        Parameter(
-​                            ​"sentence",
-​                            ParameterType.STRING,
-​                            ​"回复给用户的话",
-​                            ​true
-​                        )
-​                    ),
-​                    executor = ​object​ : ActionExecutor {
+          // 添加页面级Agent
+         PageAgent(this)
+             .registerAction(
+                 Action(
+                     name =  "com.agent.demo.SHOW_SMILE_FACE",
+                     displayName =  "笑",
+                     desc =  "响应用户的开心、满意或正面情绪",
+                     parameters =  listOf(
+                         Parameter(
+                              "sentence",
+                             ParameterType.STRING,
+                              "回复给用户的话",
+                              true
+                         )
+                     ),
+                     executor =  object  : ActionExecutor {
 
-​                        ​override​ ​fun​ ​onExecute(action: ​Action, params: ​Bundle?): ​Boolean​ {
-​                            AOCoroutineScope.launch ​{
-                    ​            ​// 播放给用户说的话
-                    ​            params?.getString("sentence")?.let ​{ AgentCore.ttsSync(it) }
-                    ​            ​// 播放完成后，及时上报Action的执行状态
-                    ​            action.notify(isTriggerFollowUp = ​false)
-                    ​        }
-​                            ​return​ ​true
-​                        }
-​                    }
-​                )
-​            )
-​    ​}
+                          override   fun   onExecute(action:  Action, params:  Bundle?):  Boolean  {
+                             AOCoroutineScope.launch  {
+                                  // 播放给用户说的话
+                                 params?.getString("sentence")?.let  { AgentCore.ttsSync(it) }
+                                  // 播放完成后，及时上报Action的执行状态
+                                 action.notify(isTriggerFollowUp =  false)
+                             }
+                              return   true
+                         }
+                     }
+                 )
+             )
+      }
 }
 ```
 
@@ -222,30 +222,30 @@ package com.ainirobot.agent.action
 
 class Action(
     /**
-​     * action全名，结构最好是公司域名+action简名，避免与其它app中的action冲突
-​     * action简名必须大写，示例：com.orion.action.WEATHER
-​     */
-​    ​name: String,
+      * action全名，结构最好是公司域名+action简名，避免与其它app中的action冲突
+      * action简名必须大写，示例：com.orion.action.WEATHER
+      */
+      name: String,
     /**
-​     * 当前应用的appId
-​     */
-​    ​appId: String,
+      * 当前应用的appId
+      */
+      appId: String,
     /**
-​     * action显示名称，可能被用于显示到UI界面上，可以是中文等
-​     */
-​    ​displayName: String,
+      * action显示名称，可能被用于显示到UI界面上，可以是中文等
+      */
+      displayName: String,
     /**
-​     * action描述，用以让大模型理解应该在什么时间调用此action
-​     */
-​    ​desc: String,
+      * action描述，用以让大模型理解应该在什么时间调用此action
+      */
+      desc: String,
     /**
-​     * 期望action在被规划出时携带的参数描述
-​     */
-​    ​parameters: List<Parameter>?,
+      * 期望action在被规划出时携带的参数描述
+      */
+      parameters: List<Parameter>?,
     /**
-​     * action对应的执行器，当action规划完成后会回调此接口
-​     */
-​    ​@Transient
+      * action对应的执行器，当action规划完成后会回调此接口
+      */
+      @Transient
     var executor: ActionExecutor?
 )
 ```
@@ -261,29 +261,29 @@ Action参数是想让大模型从用户的Query中抽取的核心内容，如：
 ```kotlin
 data class Parameter(
     /**
-​     * 参数名
-​     */
+      * 参数名
+      */
     val name: String,
     /**
-​     * 参数类型
-​     */
+      * 参数类型
+      */
     val type: ParameterType,
     /**
-​     * 参数描述
-​     */
+      * 参数描述
+      */
     val desc: String,
     /**
-​     * 是否是必要参数
-​     */
+      * 是否是必要参数
+      */
     val required: Boolean,
     /**
-​     * 当type为enum时，需要传此参数，作为枚举值选择的列表
-​     */
+      * 当type为enum时，需要传此参数，作为枚举值选择的列表
+      */
     var enumValues: List<String>? = null
 )
 ```
 
-注：参数的desc也要能精确反应此参数的定义，让大模型的理解更精准；而对于参数的name最好使用英文单词，多个单词间以下划线\_连接；另外，**​name一定不要与Action对象或Parameter对象的属性名相同或类似，避免出现歧义，​**​**这非常重要！！！这非常重要！！！这非常重要！！！**
+注：参数的desc也要能精确反应此参数的定义，让大模型的理解更精准；而对于参数的name最好使用英文单词，多个单词间以下划线\_连接；另外，** name一定不要与Action对象或Parameter对象的属性名相同或类似，避免出现歧义， ** **这非常重要！！！这非常重要！！！这非常重要！！！**
 
 ## Action注册
 
@@ -295,17 +295,17 @@ data class Parameter(
 
 #### 动态注册
 
-**​动态注册的App级Action，是为了在应用整个生命周期内响应用户的实时意图，​**在应用处于前台期间一直生效，应用退出或进入后台时则不再响应**​。​**需要在AppAgent的onCreate方法中调用注册，如以下示例，注册了一个**退出**的Action：
+** 动态注册的App级Action，是为了在应用整个生命周期内响应用户的实时意图， **在应用处于前台期间一直生效，应用退出或进入后台时则不再响应** 。 **需要在AppAgent的onCreate方法中调用注册，如以下示例，注册了一个**退出**的Action：
 
 ```Kotlin
 // 添加应用级Agent
 object : AppAgent(this) {
 
     /**
-​     * AppAgent初始化的回调
-​     * 需要动态注册的App级Action，可以此方法中注册
-​     */
-​    ​override fun onCreate() {
+      * AppAgent初始化的回调
+      * 需要动态注册的App级Action，可以此方法中注册
+      */
+      override fun onCreate() {
         // 动态注册Action
         // 示例：此处注册了系统Action：EXIT，当用户说“退出”时，会触发BACK事件
         registerAction(Actions.EXIT)
@@ -313,15 +313,15 @@ object : AppAgent(this) {
 }
 ```
 
-**动态注册**支持注册在当前应用中**新创建**的私有Action，也支持注册外部的Action，如：**系统Action**或者其它​**AgentOS App**​（集成AgentSDK的应用）中**静态注册的Action。**
+**动态注册**支持注册在当前应用中**新创建**的私有Action，也支持注册外部的Action，如：**系统Action**或者其它 **AgentOS App** （集成AgentSDK的应用）中**静态注册的Action。**
 
-以下示例，注册一个打开**天气App**中的​**打开天气首页Action**​：
+以下示例，注册一个打开**天气App**中的 **打开天气首页Action** ：
 
 ```Kotlin
 // 注册一个查天气的Action，前提是你已经安装了包含此Action的AgentOS应用（必须是在注册表中静态注册才可以）
 registerAction(
-    Action("com.agent.tool.WEATHER_HOME").also ​{ ​
-​        it.executor = object : ActionExecutor {
+    Action("com.agent.tool.WEATHER_HOME").also  {  
+         it.executor = object : ActionExecutor {
             
             override fun onExecute(action: Action, params: Bundle?): Boolean {
                 // 如果你不需要处理，请返回false，如果要自行处理且不需要后续处理，则返回true
@@ -337,7 +337,7 @@ registerAction(
 
 #### 静态注册
 
-首先，只有​**App级的Action才可以静态注册**​，静态注册的Action是为了向外部提供调起当前应用的入口，默认并不会在当前App运行期间生效，如果想要在当前App中也生效，需要再次动态注册即可。
+首先，只有 **App级的Action才可以静态注册** ，静态注册的Action是为了向外部提供调起当前应用的入口，默认并不会在当前App运行期间生效，如果想要在当前App中也生效，需要再次动态注册即可。
 
 **静态注册**必须在**actionRegistry.json**注册表中配置，并添加详细的参数描述等。
 
@@ -382,10 +382,10 @@ registerAction(
 ```Kotlin
 object : AppAgent(this) {
     /**
-​     * actionRegistry.json注册表中静态注册的action需要执行的回调
-​     * 注：只有可以被外部调用的action才可以使用静态注册，且此方法只能是被外部（其它app）调用时才会执行
-​     */
-​    ​override fun onExecuteAction(
+      * actionRegistry.json注册表中静态注册的action需要执行的回调
+      * 注：只有可以被外部调用的action才可以使用静态注册，且此方法只能是被外部（其它app）调用时才会执行
+      */
+      override fun onExecuteAction(
         action: Action,
         params: Bundle?
     ): Boolean {
@@ -409,7 +409,7 @@ object : AppAgent(this) {
 
 #### 动态注册
 
-因为**Page级Action**只在当前页面生效，所以它​**只能动态注册，不能在注册表中注册**​，即不能向外部提供接口
+因为**Page级Action**只在当前页面生效，所以它 **只能动态注册，不能在注册表中注册** ，即不能向外部提供接口
 
 以下示例定义了三个Action，根据用户的情绪显示三种不同的表情
 
@@ -531,7 +531,7 @@ pageAgent.blockAllActions()
 
 > Action执行上面已经说的很详细，此处只是为了再强调一下
 
-### **执行**​**回调**
+### **执行** **回调**
 
 动态注册Action的具体执行，需要为Action对象设置一个执行器，在执行器中添加你要执行的代码，如：
 
@@ -548,14 +548,14 @@ Action(
             true
         )
     ),
-    executor = ​object​ : ActionExecutor {
+    executor =  object  : ActionExecutor {
 
-​        ​override​ ​fun​ ​onExecute(action: ​Action, params: ​Bundle?): ​Boolean​ {
-​            showFaceImage(R.drawable.ic_angry)
-​            handleAction(action, params)
-​            ​return​ ​true
-​        }
-​    }
+          override   fun   onExecute(action:  Action, params:  Bundle?):  Boolean  {
+             showFaceImage(R.drawable.ic_angry)
+             handleAction(action, params)
+              return   true
+         }
+     }
 )
 ```
 
@@ -576,9 +576,9 @@ override fun onExecuteAction(
 
 **这非常重要，必不可少！这非常重要，必不可少！这非常重要，必不可少！这非常重要，必不可少！这非常重要，必不可少！这非常重要，必不可少！这非常重要，必不可少！这非常重要，必不可少！这非常重要，必不可少！！！**
 
-1. 首先，**任何Action的执行**​**回调**​**方法中都不能执行耗时操作。**
-2. 其次，如果你要处理一个Action，除了**在执行的**​**回调**​**方法返回值返回true**之外，还需要在**​Action执行完成后手动调用action的成员方法nofity()​**把执行状态或结果同步给系统，具体的时机用户可以自行定义，如：页面加载完成、天气播报完成、到达一个目的地等。
-3. 最后，执行的回调方法默认都是​**子线程**​。
+1. 首先，**任何Action的执行** **回调** **方法中都不能执行耗时操作。**
+2. 其次，如果你要处理一个Action，除了**在执行的** **回调** **方法返回值返回true**之外，还需要在** Action执行完成后手动调用action的成员方法nofity() **把执行状态或结果同步给系统，具体的时机用户可以自行定义，如：页面加载完成、天气播报完成、到达一个目的地等。
+3. 最后，执行的回调方法默认都是 **子线程** 。
 
 notify是Action类的成员方法，说明如下：
 
@@ -586,11 +586,11 @@ notify是Action类的成员方法，说明如下：
 package com.ainirobot.agent.action
 
 /**
-​ * Action执行完成后需要同步执行结果
-​ *
-​ * ​@param​ result Action的执行结果
-​ * ​@param​ isTriggerFollowUp 在Action执行完成后主动引导用户进行下一步操作，默认开启
-​ */
+  * Action执行完成后需要同步执行结果
+  *
+  *  @param  result Action的执行结果
+  *  @param  isTriggerFollowUp 在Action执行完成后主动引导用户进行下一步操作，默认开启
+  */
 fun notify(
     result: ActionResult = ActionResult(ActionStatus.SUCCEEDED),
     isTriggerFollowUp: Boolean = true
@@ -610,41 +610,41 @@ package com.ainirobot.agent.action
 
 object Actions {
     /**
-    ​ * 调整系统音量
-    ​ */
+      * 调整系统音量
+      */
     const val SET_VOLUME = "orion.agent.action.SET_VOLUME"
     /**
-    ​ * 机器人兜底对话
-    ​ */
+      * 机器人兜底对话
+      */
     const val SAY = "orion.agent.action.SAY"
     /**
-    ​ * 取消
-    ​ */
+      * 取消
+      */
     const val CANCEL = "orion.agent.action.CANCEL"
     /**
-    ​ * 返回
-    ​ */
+      * 返回
+      */
     const val BACK = "orion.agent.action.BACK"
     /**
-    ​ * 退出
-    ​ */
+      * 退出
+      */
     const val EXIT = "orion.agent.action.EXIT"
     /**
-    ​ * 知识库问答
-    ​ */
+      * 知识库问答
+      */
     const val KNOWLEDGE_QA = "orion.agent.action.KNOWLEDGE_QA"
     /**
-    ​ * 对用户说一句欢迎或者欢送语
-    ​ */
+      * 对用户说一句欢迎或者欢送语
+      */
     const val GENERATE_MESSAGE = "orion.agent.action.GENERATE_MESSAGE"
     /**
-    ​ * 调整机器人速度
-    ​ */
+      * 调整机器人速度
+      */
     const val ADJUST_SPEED = "orion.agent.action.ADJUST_SPEED"
 }
 ```
 
-注：​**CANCEL**​、**BACK**和**EXIT**默认处理为模拟点击**Back键**
+注： **CANCEL** 、**BACK**和**EXIT**默认处理为模拟点击**Back键**
 
 2. 需用户处理的Action
 
@@ -653,12 +653,12 @@ package com.ainirobot.agent.action
 
 object Actions {
     /**
-    ​ * 确定
-    ​ */
+      * 确定
+      */
     const val CONFIRM = "orion.agent.action.CONFIRM"
     /**
-    ​ * 点击
-    ​ */
+      * 点击
+      */
     const val CLICK = "orion.agent.action.CLICK"
 }
 ```
@@ -685,12 +685,12 @@ AgentCore.isMicrophoneMuted = false // 取消静音
 package com.ainirobot.agent
 
 /**
-​ * 语音字幕监听器，包括ASR和TTS
-​ */
-fun​ ​setOnTranscribeListener(listener: ​OnTranscribeListener): Agent
+  * 语音字幕监听器，包括ASR和TTS
+  */
+fun   setOnTranscribeListener(listener:  OnTranscribeListener): Agent
 ```
 
-以下示例，把字幕条显示到你的UI组件上，**此**​**回调**​​**是在子线程中**​：
+以下示例，把字幕条显示到你的UI组件上，**此** **回调**  **是在子线程中** ：
 
 ```Kotlin
 PageAgent(this)
@@ -710,14 +710,14 @@ PageAgent(this)
 import com.ainirobot.agent.AgentCore
 
 /**
-​ * TTS接口，同步调用
-​ * 注：此接口需在协程中调用
-​ *
-​ * ​@param​ text 要播放的文本
-​ * ​@param​ timeoutMillis 超时时间，单位毫秒
-​ *
-​ * ​@return​ 返回1表示成功，返回0表示失败
-​ */
+  * TTS接口，同步调用
+  * 注：此接口需在协程中调用
+  *
+  *  @param  text 要播放的文本
+  *  @param  timeoutMillis 超时时间，单位毫秒
+  *
+  *  @return  返回1表示成功，返回0表示失败
+  */
 suspend fun ttsSync(text: String, timeoutMillis: Long = 180000): Int {
     return this.appAgent?.api?.ttsSync(text, timeoutMillis) ?: 0
 }
@@ -727,12 +727,12 @@ suspend fun ttsSync(text: String, timeoutMillis: Long = 180000): Int {
 import com.ainirobot.agent.AgentCore
 
 /**
-​ * TTS接口，异步调用，返回状态通过TaskCallback回调
-​ *
-​ * ​@param​ text 要播放的文本
-​ * ​@param​ timeoutMillis 超时时间，单位毫秒
-​ * ​@param​ callback 回调，status=1表示播放成功，status=0表示播放失败
-​ */
+  * TTS接口，异步调用，返回状态通过TaskCallback回调
+  *
+  *  @param  text 要播放的文本
+  *  @param  timeoutMillis 超时时间，单位毫秒
+  *  @param  callback 回调，status=1表示播放成功，status=2表示播放失败
+  */
 fun tts(
     text: String,
     timeoutMillis: Long = 180000,
@@ -748,8 +748,8 @@ fun tts(
 import com.ainirobot.agent.AgentCore
 
 /**
-​ * 强制打断TTS播放
-​ */
+  * 强制打断TTS播放
+  */
 fun stopTTS() {
     this.appAgent?.api?.stopTTS()
 }
@@ -761,15 +761,15 @@ fun stopTTS() {
 import com.ainirobot.agent.AgentCore
 
 /**
-​ * 大模型接口，同步调用
-​ * 注：此接口需在协程中调用
-​ *
-​ * ​@param​ messages 大模型chat message
-​ * ​@param​ config 大模型配置
-​ * ​@param​ timeoutMillis 超时时间，单位毫秒
-​ *
-​ * ​@return​ 返回1表示成功，返回0表示失败
-​ */
+  * 大模型接口，同步调用
+  * 注：此接口需在协程中调用
+  *
+  *  @param  messages 大模型chat message
+  *  @param  config 大模型配置
+  *  @param  timeoutMillis 超时时间，单位毫秒
+  *
+  *  @return  返回1表示成功，返回0表示失败
+  */
 suspend fun llmSync(
     messages: List<LLMMessage>,
     config: LLMConfig,
@@ -783,13 +783,13 @@ suspend fun llmSync(
 import com.ainirobot.agent.AgentCore
 
 /**
-​ * 大模型接口，异步调用，返回状态通过TaskCallback回调
-​ *
-​ * ​@param​ messages 大模型chat message
-​ * ​@param​ config 大模型配置
-​ * ​@param​ timeoutMillis 超时时间，单位毫秒
-​ * ​@param​ callback 回调，status=1表示播放成功，status=0表示播放失败
-​ */
+  * 大模型接口，异步调用，返回状态通过TaskCallback回调
+  *
+  *  @param  messages 大模型chat message
+  *  @param  config 大模型配置
+  *  @param  timeoutMillis 超时时间，单位毫秒
+  *  @param  callback 回调，status=1表示播放成功，status=2表示播放失败
+  */
 fun llm(
     messages: List<LLMMessage>,
     config: LLMConfig,
@@ -806,10 +806,10 @@ fun llm(
 import com.ainirobot.agent.AgentCore
 
 /**
-​ * 通过文本形式的用户问题触发大模型规划Action
-​ *
-​ * ​@param​ text 用户问题的文本，如：今天天气怎么样？
-​ */
+  * 通过文本形式的用户问题触发大模型规划Action
+  *
+  *  @param  text 用户问题的文本，如：今天天气怎么样？
+  */
 fun query(text: String) {
     this.appAgent?.api?.query(text)
 }
@@ -821,10 +821,10 @@ fun query(text: String) {
 import com.ainirobot.agent.AgentCore
 
 /**
-​ * 让大模型根据当前场景，自动触发后续动作，如一句引导用户的话术
-​ *
-​ * ​@param​ prompt 后续动作的提示词，可选，有特殊需求或默认回答不满足需求时添加​
-​ */
+  * 让大模型根据当前场景，自动触发后续动作，如一句引导用户的话术
+  *
+  *  @param  prompt 后续动作的提示词，可选，有特殊需求或默认回答不满足需求时添加 
+  */
 fun followUp(prompt: String = "") {
     this.appAgent?.api?.followUp(prompt)
 }
@@ -836,10 +836,10 @@ fun followUp(prompt: String = "") {
 import com.ainirobot.agent.AgentCore
 
 /**
-​ * 上传页面信息，方便大模型理解当前页面的内容
-​ *
-​ * ​@param​ interfaceInfo 页面信息描述，最好带有页面组件的层次结构，但内容不宜过长
-​ */
+  * 上传页面信息，方便大模型理解当前页面的内容
+  *
+  *  @param  interfaceInfo 页面信息描述，最好带有页面组件的层次结构，但内容不宜过长
+  */
 fun uploadInterfaceInfo(interfaceInfo: String) {
     this.appAgent?.api?.uploadInterfaceInfo(interfaceInfo)
 }
@@ -851,10 +851,10 @@ fun uploadInterfaceInfo(interfaceInfo: String) {
 import com.ainirobot.agent.AgentCore
 
 /**
-​ * 清空大模型对话上下文记录
-​ */
-fun​ ​clearContext()​ {
-​    ​this.appAgent?.api?.clearContext()
+  * 清空大模型对话上下文记录
+  */
+fun   clearContext()  {
+      this.appAgent?.api?.clearContext()
 }
 ```
 
@@ -866,7 +866,7 @@ fun​ ​clearContext()​ {
 
 ### App级动态注册
 
-在应用内使用注解方式自动注册时，需要使用​**AppAgent**​(Application)构造方法，然后在**Application**中创建​**成员方法**​，最后添加注解即可
+在应用内使用注解方式自动注册时，需要使用 **AppAgent** (Application)构造方法，然后在**Application**中创建 **成员方法** ，最后添加注解即可
 
 ```kotlin
 class MainApplication : Application() {
@@ -896,32 +896,32 @@ class MainApplication : Application() {
     }
 
     @AgentAction(
-​        name = ​"com.agent.demo.SHOW_SMILE_FACE",
-​        displayName = ​"笑",
-​        desc = ​"响应用户的开心、满意或正面情绪"
-​    )
-​    ​private​ ​fun​ ​showSmileFace(
-​        action: ​Action,
-​        ​@ActionParameter(
-​            name = ​"sentence",
-​            desc = ​"回复给用户的话"
-​        )
-​        sentence: ​String
-​    ): ​Boolean​ {
-​        AOCoroutineScope.launch ​{
-​            ​// 播放给用户说的话
-​            AgentCore.ttsSync(sentence)
-​            ​// 播放完成后，及时上报Action的执行状态
-​            action.notify(isTriggerFollowUp = ​false)
-​        }
-​        ​return​ ​true
-​    }
+         name =  "com.agent.demo.SHOW_SMILE_FACE",
+         displayName =  "笑",
+         desc =  "响应用户的开心、满意或正面情绪"
+     )
+      private   fun   showSmileFace(
+         action:  Action,
+          @ActionParameter(
+             name =  "sentence",
+             desc =  "回复给用户的话"
+         )
+         sentence:  String
+     ):  Boolean  {
+         AOCoroutineScope.launch  {
+              // 播放给用户说的话
+             AgentCore.ttsSync(sentence)
+              // 播放完成后，及时上报Action的执行状态
+             action.notify(isTriggerFollowUp =  false)
+         }
+          return   true
+     }
 }
 ```
 
 ### Page级动态注册
 
-在页面内部使用注解方式自动注册时，需要使用​**PageAgent**​(Activity)或​**PageAgent**​(Fragment)构造方法，然后在对应的**Activity**或**Fragment**中创建​**成员方法**​，最后添加注解即可
+在页面内部使用注解方式自动注册时，需要使用 **PageAgent** (Activity)或 **PageAgent** (Fragment)构造方法，然后在对应的**Activity**或**Fragment**中创建 **成员方法** ，最后添加注解即可
 
 ```kotlin
 class MainActivity : AppCompatActivity() {
@@ -929,37 +929,37 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { ​v, insets ->
-​            ​val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) {  v, insets ->
+              val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-​        ​// PageAgent初始化
+          // PageAgent初始化
         PageAgent(this)
     }
 
     @AgentAction(
-​        name = ​"com.agent.demo.SHOW_SMILE_FACE",
-​        displayName = ​"笑",
-​        desc = ​"响应用户的开心、满意或正面情绪"
-​    )
-​    ​private​ ​fun​ ​showSmileFace(
-​        action: ​Action,
-​        ​@ActionParameter(
-​            name = ​"sentence",
-​            desc = ​"回复给用户的话"
-​        )
-​        sentence: ​String
-​    ): ​Boolean​ {
-​        AOCoroutineScope.launch ​{
-​            ​// 播放给用户说的话
-​            AgentCore.ttsSync(sentence)
-​            ​// 播放完成后，及时上报Action的执行状态
-​            action.notify(isTriggerFollowUp = ​false)
-​        }
-​        ​return​ ​true
-​    }
+         name =  "com.agent.demo.SHOW_SMILE_FACE",
+         displayName =  "笑",
+         desc =  "响应用户的开心、满意或正面情绪"
+     )
+      private   fun   showSmileFace(
+         action:  Action,
+          @ActionParameter(
+             name =  "sentence",
+             desc =  "回复给用户的话"
+         )
+         sentence:  String
+     ):  Boolean  {
+         AOCoroutineScope.launch  {
+              // 播放给用户说的话
+             AgentCore.ttsSync(sentence)
+              // 播放完成后，及时上报Action的执行状态
+             action.notify(isTriggerFollowUp =  false)
+         }
+          return   true
+     }
 }
 ```
 
@@ -978,17 +978,17 @@ package com.ainirobot.agent.annotations
 @Retention(AnnotationRetention.RUNTIME)
 annotation class AgentAction(
     /**
-​     * Action的名称
-​     */
-​    ​val name: String,
+      * Action的名称
+      */
+      val name: String,
     /**
-​     * Action的描述
-​     */
-​    ​val desc: String,
+      * Action的描述
+      */
+      val desc: String,
     /**
-​     * Action的显示名称
-​     */
-​    ​val displayName: String
+      * Action的显示名称
+      */
+      val displayName: String
 )
 ```
 
@@ -1003,21 +1003,21 @@ package com.ainirobot.agent.annotations
 @Retention(AnnotationRetention.RUNTIME)
 annotation class ActionParameter(
     /**
-​     * 参数名
-​     */
-​    ​val name: String,
+      * 参数名
+      */
+      val name: String,
     /**
-​     * 参数描述
-​     */
-​    ​val desc: String,
+      * 参数描述
+      */
+      val desc: String,
     /**
-​     * 是否是必要参数
-​     */
-​    ​val required: Boolean = true,
+      * 是否是必要参数
+      */
+      val required: Boolean = true,
     /**
-​     * 限制参数的value只能从指定的值中选择
-​     */
-​    ​val enumValues: Array<String> = []
+      * 限制参数的value只能从指定的值中选择
+      */
+      val enumValues: Array<String> = []
 )
 ```
 
